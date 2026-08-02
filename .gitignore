@@ -27,6 +27,7 @@ $RECYCLE.BIN/
 
 # IDE 用户配置文件（可选）
 *.pro.user.???????
+PCIE.pro.user
 /.qbuild/
 
 # 可执行文件和库文件
