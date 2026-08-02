@@ -1,0 +1,42 @@
+# Qt 构建产物
+/debug/
+/release/
+/*.o
+/*.exp
+/*.ilk
+/*.pdb
+/qmake.stash
+/Makefile*
+/.*.swp
+/.*.swo
+/*~
+
+# Visual Studio (如果有)
+/.vs/
+/Visual Studio/
+*.vcxproj*
+*.sdf
+*.opensdf
+*.dbx
+
+# Windows 系统文件
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE 用户配置文件（可选）
+*.pro.user.???????
+/.qbuild/
+
+# 可执行文件和库文件
+/bin/*.exe
+/bin/*.dll
+/bin/*.so
+/bin/*.lib
+/bin/*.a
+
+# 临时文件
+*.tmp
+*.bak
+*.backup
