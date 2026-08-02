@@ -1,43 +1,109 @@
-# Qt 构建产物
-/debug/
-/release/
-/*.o
-/*.exp
-/*.ilk
-/*.pdb
-/qmake.stash
-/Makefile*
-/.*.swp
-/.*.swo
-/*~
+# ============================================================
+# 1. Qt 编译产物 - 所有平台相关二进制文件
+# ============================================================
 
-# Visual Studio (如果有)
-/.vs/
-/Visual Studio/
-*.vcxproj*
+# 对象文件
+*.o
+*.obj
+
+# 可执行文件
+*.exe
+*.exe~
+
+# 动态链接库
+*.dll
+*.dll~
+
+# 静态库
+*.lib
+*.lib~
+
+# 导入库
+*.exp
+
+# 增量链接文件
+*.ilk
+
+# 程序数据库文件（调试符号）
+*.pdb
+
+# 编译数据库
+*.idb
+
+# 预编译头文件
+*.pch
+
+# ============================================================
+# 2. Qt 构建目录和生成的文件
+# ============================================================
+
+# Debug/Release 构建目录
+debug/
+release/
+Debug/
+Release/
+
+# qmake 生成的 Makefile
+Makefile
+Makefile.Debug
+Makefile.Release
+
+# qmake 缓存文件
+.qmake.stash
+
+# Qt Moc/Uic/Rcc 生成的文件
+moc_*.cpp
+ui_*.h
+qrc_*.cpp
+
+# ============================================================
+# 3. Qt Creator IDE 配置文件
+# ============================================================
+
+# Qt Creator 用户配置（包含本地路径，不应共享）
+*.pro.user
+*.pro.user.*
+*.creator
+*.creator.user
+*.creator.user.*
+*.files
+*.files.user
+*.includes
+*.includes.user
+
+# Qt Creator 会话文件
+*.qws
+
+# ============================================================
+# 4. Visual Studio 相关文件（MSVC 编译器）
+# ============================================================
+
+# Visual Studio 用户配置
+*.suo
+*.user
+*.sln.docstates
+
+# Visual Studio 临时文件和日志
+*.tlog
+*.lastbuildstate
+*.Build.Cpp.Clean
+*.log
+
+# IntelliSense 数据库
 *.sdf
 *.opensdf
-*.dbx
+*.VC.db
+*.VC.opendb
 
-# Windows 系统文件
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-$RECYCLE.BIN/
+# ReSharper C++
+*_ReSharper*/
+*.resharper
+*.DotSettings
 
-# IDE 用户配置文件（可选）
-*.pro.user.???????
-PCIE.pro.user
-/.qbuild/
+# ============================================================
+# 9. 日志和临时文件（根目录）
+# ============================================================
 
-# 可执行文件和库文件
-/bin/*.exe
-/bin/*.dll
-/bin/*.so
-/bin/*.lib
-/bin/*.a
-
-# 临时文件
+*.log
 *.tmp
-*.bak
-*.backup
+*.temp
