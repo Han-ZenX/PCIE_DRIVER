@@ -103,15 +103,15 @@ bool Pcie::InitTTL()
     RST.port = 1;RST.bit = 4;
 
 
-    m_instantDoCtrl->WriteBit(SCLK.port,SCLK.bit,0);  //SCKL 0 时钟信号应从 低电平开始，防止SCLK初始化状态为 1 ,再经过一段延时后开始起振
+    WriteBit(SCLK.port,SCLK.bit,0);  //SCKL 0 时钟信号应从 低电平开始，防止SCLK初始化状态为 1 ,再经过一段延时后开始起振
 
-    m_instantDoCtrl->WriteBit(CS.port,CS.bit,1);  //CS  1，片选信号初始化置高
+    WriteBit(CS.port,CS.bit,1);  //CS  1，片选信号初始化置高
 
-    m_instantDoCtrl->WriteBit(START.port,START.bit,0);  //START  0，START信号初始化置低，需要进行AD转换读取数据时再置高
+    WriteBit(START.port,START.bit,0);  //START  0，START信号初始化置低，需要进行AD转换读取数据时再置高
 
-    m_instantDoCtrl->WriteBit(RST.port,RST.bit,1);  //RST 1,经测试，此位需要置高，否则读取不到数据
+    WriteBit(RST.port,RST.bit,1);  //RST 1,经测试，此位需要置高，否则读取不到数据
 
-    m_instantDoCtrl->WriteBit(PWDN.port,PWDN.bit,1);  //PWDN 1,经测试，此位需要置高，否则读取不到数据
+    WriteBit(PWDN.port,PWDN.bit,1);  //PWDN 1,经测试，此位需要置高，否则读取不到数据
 
     QThread::msleep(10); //CS片选延时
 
@@ -137,22 +137,22 @@ bool Pcie::WriteBit(int32 port, int32 bit, uint8 data)
     return true;
 }
 
-bool Pcie::ReadBit(int32 port, int32 bit, uint8 &data)
+bool Pcie::ReadBit(int32 port, int32 bit, uint8 *data)
 {
     ErrorCode errorCode = Success;
 
-    errorCode = m_instantDoCtrl->ReadBit(port,bit,&data);
+    errorCode = m_instantDoCtrl->ReadBit(port,bit,data);
 
     return true;
 }
 
 void Pcie::Reset()
 {
-     m_instantDoCtrl->WriteBit(RST.port,RST.bit,0);  //RST 0
+     WriteBit(RST.port,RST.bit,0);  //RST 0
 
      QThread::msleep(1); //低电平保持大于两个fclk的时间
 
-     m_instantDoCtrl->WriteBit(RST.port,RST.bit,1);  //RST 1
+     WriteBit(RST.port,RST.bit,1);  //RST 1
 }
 
 double Pcie::ADCTemp()
@@ -597,9 +597,9 @@ int32 Pcie::ReadChannelData()
 
     int32 AD_DEC;
 
-    m_instantDoCtrl->WriteBit(CS.port,CS.bit,0);  //CS  0，片选信号初始化置高
+    WriteBit(CS.port,CS.bit,0);  //CS  0，片选信号初始化置高
 
-    m_instantDoCtrl->WriteBit(START.port,START.bit,1); //START - 1
+    WriteBit(START.port,START.bit,1); //START - 1
 
     /////////
     QThread::msleep(3); //START 置高后等待一段时间，等待数据转换完成
@@ -613,9 +613,9 @@ int32 Pcie::ReadChannelData()
         Data[i] = ReadByte();
     }
 
-    m_instantDoCtrl->WriteBit(START.port,START.bit,0); //START - 0
+    WriteBit(START.port,START.bit,0); //START - 0
 
-    m_instantDoCtrl->WriteBit(CS.port,CS.bit,1);  //CS  1
+    WriteBit(CS.port,CS.bit,1);  //CS  1
 
     AD_DEC = (uint32)(Data[1]<<16)|(Data[2]<<8)|Data[3];
 
@@ -630,7 +630,7 @@ int32 Pcie::ReadChannelData()
 ///*********新增加的部分
 void Pcie::SetRegister(uint8 addr,uint8 cmd)
 {
-    m_instantDoCtrl->WriteBit(CS.port,CS.bit,0);  //CS 0
+    WriteBit(CS.port,CS.bit,0);  //CS 0
 
     WriteByte(addr | 0x60); //0x60 是01100000,写入单个寄存器数据
 
@@ -638,7 +638,7 @@ void Pcie::SetRegister(uint8 addr,uint8 cmd)
 
    //WriteByte(addr | 0x70); //0x70 是01110000,写入多个寄存器数据
 
-    m_instantDoCtrl->WriteBit(CS.port,CS.bit,1);  //CS 1
+    WriteBit(CS.port,CS.bit,1);  //CS 1
 }
 
 uint8 Pcie::ReadRegister(uint8 addr)
@@ -650,13 +650,13 @@ uint8 Pcie::ReadByte(uint8 data)
 {
     uint8_t temp;
 
-    m_instantDoCtrl->WriteBit(CS.port,CS.bit,0);  //CS 0
+    WriteBit(CS.port,CS.bit,0);  //CS 0
 
     WriteByte(data);
 
     temp = ReadByte();
 
-    m_instantDoCtrl->WriteBit(CS.port,CS.bit,1);  //CS 1
+    WriteBit(CS.port,CS.bit,1);  //CS 1
 
     return temp;
 
@@ -672,13 +672,13 @@ void Pcie::WriteByte(uint8 data)
 
     for(i=0;i<8;i++)
     {
-        m_instantDoCtrl->WriteBit(DIN.port,DIN.bit,WriteData[i]); //DIN - 1
+        WriteBit(DIN.port,DIN.bit,WriteData[i]); //DIN - 1
 
-        m_instantDoCtrl->WriteBit(SCLK.port,SCLK.bit,1); //SCKL 1
+        WriteBit(SCLK.port,SCLK.bit,1); //SCKL 1
 
-        m_instantDoCtrl->WriteBit(DIN.port,DIN.bit,0); //DIN - 0
+        WriteBit(DIN.port,DIN.bit,0); //DIN - 0
 
-        m_instantDoCtrl->WriteBit(SCLK.port,SCLK.bit,0); //SCKL 0
+        WriteBit(SCLK.port,SCLK.bit,0); //SCKL 0
     }
 }
 
@@ -690,19 +690,17 @@ uint8 Pcie::ReadByte()
 
     for(i=0;i<8;i++)
     {
-        m_instantDoCtrl->WriteBit(SCLK.port,SCLK.bit,1); //SCKL 1
+        WriteBit(SCLK.port,SCLK.bit,1); //SCKL 1
 
-        m_instantDoCtrl->ReadBit(DOUT.port,DOUT.bit,&ReadData[i]); //DOUT 读取数据
+        ReadBit(DOUT.port,DOUT.bit,&ReadData[i]); //DOUT 读取数据
 
-        m_instantDoCtrl->WriteBit(DIN.port,DIN.bit,0); //DIN 0
+        WriteBit(DIN.port,DIN.bit,0); //DIN 0
 
-        m_instantDoCtrl->WriteBit(SCLK.port,SCLK.bit,0); //SCKL 0
+        WriteBit(SCLK.port,SCLK.bit,0); //SCKL 0
     }
 
     return BinConverToByte(ReadData);
 }
-
-
 
 void Pcie::ByteConverToBin(uint8 byte,uint8 *bin)
 {

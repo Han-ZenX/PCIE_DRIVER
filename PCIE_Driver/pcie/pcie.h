@@ -108,7 +108,7 @@ public:
 
     bool WriteBit(int32 port, int32 bit, uint8 data);
 
-    bool ReadBit(int32 port, int32 bit, uint8 &data);
+    bool ReadBit(int32 port, int32 bit, uint8 *data);
 
     void Reset(); //复位AD芯片功能
 
