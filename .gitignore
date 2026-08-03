@@ -101,9 +101,112 @@ qrc_*.cpp
 *.DotSettings
 
 # ============================================================
+# 5. 运行时生成的数据文件
+# ============================================================
+
+# 测试数据存储目录
+bin/Data/
+
+# 导出文件目录
+bin/Export/
+
+# 运行日志目录
+bin/log/
+
+# 数据库文件（如果有）
+*.sqlite
+*.sqlite3
+*.db
+
+# ============================================================
+# 6. 第三方运行时库（应通过安装程序获取）
+# ============================================================
+
+# Qt 运行时库（Debug 版本）
+bin/Qt5Cored.dll
+bin/Qt5Guid.dll
+bin/Qt5Networkd.dll
+bin/Qt5PrintSupportd.dll
+bin/Qt5SerialPortd.dll
+bin/Qt5Sqld.dll
+bin/Qt5Svgd.dll
+bin/Qt5Widgetsd.dll
+
+# Qt 运行时库（Release 版本）
+bin/Qt5Core.dll
+bin/Qt5Gui.dll
+bin/Qt5Network.dll
+bin/Qt5PrintSupport.dll
+bin/Qt5SerialPort.dll
+bin/Qt5Sql.dll
+bin/Qt5Svg.dll
+bin/Qt5Widgets.dll
+
+# OpenGL 和图形库
+bin/libEGLd.dll
+bin/libEGL.dll
+bin/libGLESV2d.dll
+bin/libGLESV2.dll
+bin/D3Dcompiler_*.dll
+bin/opengl32sw.dll
+
+# MSVC 运行时库
+bin/msvcp*.dll
+bin/vcruntime*.dll
+bin/ucrtbased.dll
+bin/ucrtbase.dll
+bin/VC_x86Runtime.exe
+
+# Qt 插件目录
+bin/platforms/
+bin/imageformats/
+bin/iconengines/
+bin/bearer/
+bin/printsupport/
+bin/sqldrivers/
+bin/styles/
+bin/translations/
+
+# ============================================================
+# 7. 模板和缓存文件
+# ============================================================
+
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ============================================================
+# 8. 压缩包和备份文件
+# ============================================================
+
+*.zip
+*.rar
+*.7z
+*.tar.gz
+*.bak
+*.backup
+*~
+
+
+# ============================================================
 # 9. 日志和临时文件（根目录）
 # ============================================================
 
 *.log
 *.tmp
 *.temp
+
+# ============================================================
+# 10. Python（如果有辅助脚本）
+# ============================================================
+
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
